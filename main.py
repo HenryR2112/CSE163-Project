@@ -1,6 +1,6 @@
 import plotly.graph_objects as go
 import dash
-from dash import Dash, dcc, html
+from dash import Dash, dcc, html, dash_table
 import pandas as pd
 
 df_fremont = pd.read_csv('Filtered Data/fremont_filtered.csv')
@@ -64,7 +64,7 @@ app.layout = html.Div(
         dcc.Graph(
             id='map',
             figure=figure,
-            style={'height': '80vh'},
+            style={'height': '70vh', 'margin': '0px'},
             config=dict(displayModeBar=False)
         ),
         html.P("Some flavor text below the map.", style={'color': colors['text'], 'fontFamily': 'Helvetica'}),
@@ -78,7 +78,7 @@ app.layout = html.Div(
                 marks={str(year): str(year) for year in range(df_fremont['Date'].dt.year.min(), df_fremont['Date'].dt.year.max()+1)},
                 step=None
             )
-        ], style={'width': '50%', 'margin': 'auto'}),
+        ], style={'width': '50%', 'margin': 'auto', 'marginTop': '10px', 'marginBottom': '10px'}),
         html.Div([
             html.Label("Select Month:"),
             dcc.Slider(
@@ -89,7 +89,8 @@ app.layout = html.Div(
                 marks={str(month): str(month) for month in range(df_fremont['Date'].dt.month.min(), df_fremont['Date'].dt.month.max()+1)},
                 step=None
             )
-        ], style={'width': '50%', 'margin': 'auto'})
+        ], style={'width': '50%', 'margin': 'auto'}),
+        html.Div(id='table-container', style={'margin': 'auto', 'marginTop': '20px', 'width': 'fit-content'})
     ]
 )
 
@@ -141,6 +142,37 @@ def update_figure(year, month):
     )
 
     return figure
+
+
+@app.callback(
+    dash.dependencies.Output('table-container', 'children'),
+    [dash.dependencies.Input('year-slider', 'value'),
+     dash.dependencies.Input('month-slider', 'value')]
+)
+def update_table(year, month):
+    filtered_df_fremont = df_fremont[(df_fremont['Date'].dt.year == year) & (df_fremont['Date'].dt.month == month)]
+    filtered_df_ballard = df_ballard[(df_ballard['Date'].dt.year == year) & (df_ballard['Date'].dt.month == month)]
+    filtered_df_elliott = df_elliott[(df_elliott['Date'].dt.year == year) & (df_elliott['Date'].dt.month == month)]
+    filtered_df_burke = df_burke[(df_burke['Date'].dt.year == year) & (df_burke['Date'].dt.month == month)]
+
+    data = [
+        {'Sensor': 'Fremont Bridge Sensor', 'Bike Sum': filtered_df_fremont['bike_sum'].sum()},
+        {'Sensor': 'NW 58th St Greenway at 22nd Ave NW Sensor', 'Bike Sum': filtered_df_ballard['bike_sum'].sum()},
+        {'Sensor': 'Elliott-Bay Trail in Myrtle-Edwards Park Sensor', 'Bike Sum': filtered_df_elliott['bike_sum'].sum()},
+        {'Sensor': 'Burke-Gilman Trail NE 70th St Sensor', 'Bike Sum': filtered_df_burke['bike_sum'].sum()}
+    ]
+
+    columns = [{'name': 'Sensor', 'id': 'Sensor'}, {'name': 'Bike Sum', 'id': 'Bike Sum'}]
+
+    return dash_table.DataTable(
+        columns=columns,
+        data=data,
+        style_header={'backgroundColor': 'rgb(30, 30, 30)'},
+        style_cell={
+            'backgroundColor': 'rgb(50, 50, 50)',
+            'color': 'white'
+        },
+    )
 
 
 if __name__ == '__main__':
