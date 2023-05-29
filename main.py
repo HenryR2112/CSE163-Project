@@ -1,6 +1,8 @@
 import plotly.graph_objects as go
 from dash import Dash, dcc, html
+import pandas as pd
 
+df = pd.read_csv('filtered_dataset.csv')
 colors = {
     'background': '#3c434e',
     'text': '#f0f0f0'

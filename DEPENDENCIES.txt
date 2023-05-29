@@ -1,0 +1,24 @@
+In  order to run This application the following packages must be installed and updated
+to their most current versions:
+
+1. Plotly
+2. Dash
+3. Pandas
+4. Numpy
+
+Installation guide:
+To access the necessary dependencies use the following syntax
+
+pip install PACKAGE
+
+to run the code locally:
+1. Clone the repository
+2. Download dependencies
+3. Run the main.py file using either VSCode's run button or through
+python main.py 
+
+running the file should generate a private webspace where the Dash app is run, this app should use the data filtered
+and modified in the filter.py file and testable with the filter_test.py file.
+
+These steps are to run the site on a local host and the github pages will be used as the primary access point to use the site.
+
