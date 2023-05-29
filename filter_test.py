@@ -4,7 +4,7 @@ import math
 import numpy as np
 TOLERANCE = 0.001
 
-DF_FREMONT = 
+
 
 def check_approx_equals(expected: Any, received: Any) -> bool:
     """

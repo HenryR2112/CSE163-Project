@@ -19,6 +19,17 @@ df_burke_filtered = df_burke.loc[START_DATE:END_DATE].copy()
 df_elliott_filtered = df_elliott.loc[START_DATE:END_DATE].copy()
 df_ballard_filtered = df_ballard.loc[START_DATE:END_DATE].copy()
 
+df_fremont_filtered['bike_sum'] = df_fremont_filtered['Fremont Bridge Sidewalks, south of N 34th St']
+df_burke_filtered['bike_sum'] = df_burke_filtered['Bike North'] + df_burke_filtered['Bike South']
+df_elliott_filtered['bike_sum'] = df_elliott_filtered['Bike North'] + df_elliott_filtered['Bike South']
+df_ballard_filtered['bike_sum'] = df_ballard_filtered['NW 58th St Greenway st 22nd Ave NW Total']
+
+
+df_fremont_filtered = df_fremont_filtered.resample('M').sum()
+df_burke_filtered = df_burke_filtered.resample('M').sum()
+df_elliott_filtered = df_elliott_filtered.resample('M').sum()
+df_ballard_filtered = df_ballard_filtered.resample('M').sum()
+
 df_fremont_filtered['lon'] = -122.349834
 df_fremont_filtered['lat'] = 47.648116
 
@@ -31,20 +42,12 @@ df_elliott_filtered['lat'] = 47.616238
 df_ballard_filtered['lon'] = -122.384746
 df_ballard_filtered['lat'] = 47.671213
 
-df_burke_filtered['bike_sum_burke'] = df_burke_filtered['Bike North'] + df_burke_filtered['Bike South']
-df_elliott_filtered['bike_sum_elliott'] = df_elliott_filtered['Bike North'] + df_elliott_filtered['Bike South']
+df_fremont_filtered = df_fremont_filtered.loc[:, ['bike_sum', 'lon', 'lat']]
+df_burke_filtered = df_burke_filtered.loc[:, ['bike_sum', 'lon', 'lat']]
+df_elliott_filtered = df_elliott_filtered.loc[:, ['bike_sum', 'lon', 'lat']]
+df_ballard_filtered = df_ballard_filtered.loc[:, ['bike_sum', 'lon', 'lat']]
 
-df_fremont_filtered = df_fremont_filtered.loc[:, ['NW 58th St Greenway st 22nd Ave NW Total', 'lon', 'lat']]
-df_burke_filtered = df_burke_filtered.loc[:, ['bike_sum_burke', 'lon', 'lat']]
-df_elliott_filtered = df_elliott_filtered.loc[:, ['bike_sum_elliott', 'lon', 'lat']]
-df_ballard_filtered = df_ballard_filtered.loc[:, ["Fremont Bridge Sidewalks, south of N 34th St", 'lon', 'lat']]
-
-df_fremont_filtered = df_fremont_filtered.resample('M').sum()
-df_burke_filtered = df_burke_filtered.resample('M').sum()
-df_elliott_filtered = df_elliott_filtered.resample('M').sum()
-df_ballard_filtered = df_ballard_filtered.resample('M').sum()
-
-df_fremont_filtered.to_csv('fremont_filtered.csv')
-df_burke_filtered.to_csv('burke_filtered.csv')
-df_elliott_filtered.to_csv('elliot_filtered.csv')
-df_ballard_filtered.to_csv('ballard_filtered.csv')
+df_fremont_filtered.to_csv('Filtered Data/fremont_filtered.csv')
+df_burke_filtered.to_csv('Filtered Data/burke_filtered.csv')
+df_elliott_filtered.to_csv('Filtered Data/elliot_filtered.csv')
+df_ballard_filtered.to_csv('Filtered Data/ballard_filtered.csv')
