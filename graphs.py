@@ -1,3 +1,14 @@
+'''
+CSE163 Final Project Group 3
+Ani Ramadurai, Annika Halvorson, Henry Ramstad
+
+graph.py is the file that is responsible for creatinng the
+graphs to be used for our data analysis to answer our research
+questions. It takes the filtered data created in filter.py
+and creates three graphs for each of the four sensors for
+each of the three pre-determined pandemic time periods
+'''
+
 import seaborn as sns
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -31,7 +42,9 @@ POST_PANDEMIC_END = pd.to_datetime('2022-06-30')
 
 def plot_pre_burke(df_burke: pd.DataFrame) -> None:
     '''
-    comment
+    creates a line plot of the data from the burke gilman trail
+    sensor for the pre-pandemic time period, which we determined
+    to be January 1st, 2018 through December 31st, 2019
     '''
     df_pre_burke = df_burke.loc[
         (df_burke['Date'] >= PRE_PANDEMIC_START) &
@@ -51,7 +64,9 @@ def plot_pre_burke(df_burke: pd.DataFrame) -> None:
 
 def plot_during_burke(df_burke: pd.DataFrame) -> None:
     '''
-    comment
+    creates a line plot of the data from the burke gilman trail
+    sensor for the pandemic time period, which we determined
+    to be January 1st, 2020 through December 31st, 2021
     '''
     df_during_burke = df_burke.loc[
         (df_burke['Date'] >= PANDEMIC_START) &
@@ -71,7 +86,9 @@ def plot_during_burke(df_burke: pd.DataFrame) -> None:
 
 def plot_post_burke(df_burke: pd.DataFrame) -> None:
     '''
-    comment
+    creates a line plot of the data from the burke gilman trail
+    sensor for the pre-pandemic time period, which we determined
+    to be January 1st, 2022 through June 30th, 2022
     '''
     df_post_burke = df_burke.loc[
         (df_burke['Date'] >= POST_PANDEMIC_START) &
@@ -91,7 +108,9 @@ def plot_post_burke(df_burke: pd.DataFrame) -> None:
 
 def plot_pre_ballard(df_ballard: pd.DataFrame) -> None:
     '''
-    comment
+    creates a line plot of the data from the Ballard neighborhood
+    sensor for the pre-pandemic time period, which we determined
+    to be January 1st, 2018 through December 31st, 2019
     '''
     df_pre_ballard = df_ballard.loc[
         (df_ballard['Date'] >= PRE_PANDEMIC_START) &
@@ -111,7 +130,9 @@ def plot_pre_ballard(df_ballard: pd.DataFrame) -> None:
 
 def plot_during_ballard(df_ballard: pd.DataFrame) -> None:
     '''
-    comment
+    creates a line plot of the data from the Ballard neighborhood
+    sensor for the pandemic time period, which we determined
+    to be January 1st, 2020 through December 31st, 2021
     '''
     df_during_ballard = df_ballard.loc[
         (df_ballard['Date'] >= PANDEMIC_START) &
@@ -131,7 +152,9 @@ def plot_during_ballard(df_ballard: pd.DataFrame) -> None:
 
 def plot_post_ballard(df_ballard: pd.DataFrame) -> None:
     '''
-    comment
+    creates a line plot of the data from the Ballard neighborhood
+    sensor for the post-pandemic time period, which we determined
+    to be January 1st, 2022 through June 30th, 2022
     '''
     df_post_ballard = df_ballard.loc[
         (df_ballard['Date'] >= POST_PANDEMIC_START) &
@@ -151,7 +174,9 @@ def plot_post_ballard(df_ballard: pd.DataFrame) -> None:
 
 def plot_pre_elliot(df_elliot: pd.DataFrame) -> None:
     '''
-    comment
+    creates a line plot of the data from the Elliot Bay Trail
+    sensor for the pre-pandemic time period, which we determined
+    to be January 1st, 2018 through December 31st, 2019
     '''
     df_pre_elliot = df_elliot.loc[
         (df_elliot['Date'] >= PRE_PANDEMIC_START) &
@@ -171,7 +196,9 @@ def plot_pre_elliot(df_elliot: pd.DataFrame) -> None:
 
 def plot_during_elliot(df_elliot: pd.DataFrame) -> None:
     '''
-    comment
+    creates a line plot of the data from the Elliot Bay Trail
+    sensor for the pandemic time period, which we determined
+    to be January 1st, 2020 through December 31st, 2021
     '''
     df_during_elliot = df_elliot.loc[
         (df_elliot['Date'] >= PANDEMIC_START) &
@@ -191,7 +218,9 @@ def plot_during_elliot(df_elliot: pd.DataFrame) -> None:
 
 def plot_post_elliot(df_elliot: pd.DataFrame) -> None:
     '''
-    comment
+    creates a line plot of the data from the Elliot Bay Trail
+    sensor for the post-pandemic time period, which we determined
+    to be January 1st, 2022 through June 30th, 2022
     '''
     df_post_elliot = df_elliot.loc[
         (df_elliot['Date'] >= POST_PANDEMIC_START) &
@@ -211,7 +240,9 @@ def plot_post_elliot(df_elliot: pd.DataFrame) -> None:
 
 def plot_pre_fremont(df_fremont: pd.DataFrame) -> None:
     '''
-    comment
+    creates a line plot of the data from the Fremont Bridge
+    sensor for the pre-pandemic time period, which we determined
+    to be January 1st, 2018 through December 31st, 2019
     '''
     df_pre_fremont = df_fremont.loc[
         (df_fremont['Date'] >= PRE_PANDEMIC_START) &
@@ -231,7 +262,9 @@ def plot_pre_fremont(df_fremont: pd.DataFrame) -> None:
 
 def plot_pandemic_fremont(df_fremont: pd.DataFrame) -> None:
     '''
-    comment
+    creates a line plot of the data from the Fremont Bridge
+    sensor for the pandemic time period, which we determined
+    to be January 1st, 2020 through December 31st, 2021
     '''
     df_during_fremont = df_fremont.loc[
         (df_fremont['Date'] >= PANDEMIC_START) &
@@ -251,7 +284,9 @@ def plot_pandemic_fremont(df_fremont: pd.DataFrame) -> None:
 
 def plot_post_fremont(df_fremont: pd.DataFrame) -> None:
     '''
-    comment
+    creates a line plot of the data from the Fremont Bridge
+    sensor for the post-pandemic time period, which we determined
+    to be January 1st, 2022 through June 30th, 2022
     '''
     df_post_fremont = df_fremont.loc[
         (df_fremont['Date'] >= POST_PANDEMIC_START) &

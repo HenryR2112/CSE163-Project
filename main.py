@@ -30,10 +30,14 @@ figure = go.Figure()
 SCALING_FACTOR = 0.12
 
 # Add initial scatter plot points
-for df, name in [(df_fremont, 'Fremont Bridge Sensor'),
-                 (df_ballard, 'NW 58th St Greenway at 22nd Ave NW Sensor'),
-                 (df_elliott, 'Elliott-Bay Trail in Myrtle-Edwards Park Sensor'),
-                 (df_burke, 'Burke-Gilman Trail NE 70th St Sensor')]:
+for df, name in [(df_fremont,
+                  'Fremont Bridge Sensor'),
+                 (df_ballard,
+                  'NW 58th St Greenway at 22nd Ave NW Sensor'),
+                 (df_elliott,
+                  'Elliott-Bay Trail in Myrtle-Edwards Park Sensor'),
+                 (df_burke,
+                  'Burke-Gilman Trail NE 70th St Sensor')]:
     circle_marker = go.Scattermapbox(
         mode="markers",
         lon=df['lon'],
@@ -65,54 +69,102 @@ figure.update_layout(
     font={'color': colors['text']}
 )
 
+
 @app.server.route("/pdf")
 def serve_pdf():
-    return flask.send_file("CSE_163_Project_Report.pdf", attachment_filename="CSE_163_Project_Report.pdf")
+    return flask.send_file("CSE_163_Project_Report.pdf",
+                           attachment_filename="CSE_163_Project_Report.pdf")
 
-# App HTML written using Dash syntax including the text and drawing of the graph,
-# table, sliders, and additional elements.
+
+# App HTML written using Dash syntax including the text and drawing of the
+# graph,table, sliders, and additional elements.
 app.layout = html.Div(
     style={'backgroundColor': colors['background'], 'padding': '20px'},
     children=[
-        html.H1("Understanding COVID-19’s Effect on Bicycle Route Usage in Seattle from 2018 to 2022",
-                 style={'textAlign': 'center', 'color': colors['text'], 'fontFamily': 'Helvetica', 'border': '1px solid #ddd', 'padding': '10px', 'border-radius': '15px'}),
-        html.P("The map below displays interactive visuals of our data across 4 Seattle area bike sensors",
-                style={'color': colors['text'], 'fontFamily': 'Helvetica', 'padding': '2px', 'border': '1px solid #ddd', 'margin': '10px', 'border-radius': '5px'}),
+        html.H1(
+            "Understanding COVID-19’s Effect on Bicycle Route Usage in Seattle from 2018 to 2022",
+            style={'textAlign': 'center', 'color': colors['text'],
+                   'fontFamily': 'Helvetica', 'border': '1px solid #ddd',
+                   'padding': '10px', 'border-radius': '15px'}),
+        html.P(
+            "The map below displays interactive visuals of our data across 4 Seattle area bike sensors",
+            style={'color': colors['text'], 'fontFamily': 'Helvetica',
+                   'padding': '2px', 'border': '1px solid #ddd',
+                   'margin': '10px', 'border-radius': '5px'}),
         dcc.Graph(
             id='map',
             figure=figure,
             style={'height': '70vh', 'margin': '0px'},
             config=dict(displayModeBar=False)
         ),
-        html.P("Use the Sliders below to filter the data to specific months and years!", style={'color': colors['text'], 'fontFamily': 'Helvetica', 'padding': '10px', 'margin': '10px', 'textAlign': 'center'}),
+        html.P(
+            "Use the Sliders below to filter the data to specific months and years!",
+            style={'color': colors['text'], 'fontFamily': 'Helvetica',
+                   'padding': '10px', 'margin': '10px',
+                   'textAlign': 'center'}),
         html.Div([
-            html.Label("Select Year:", style={'color': colors['text'], 'fontFamily': 'Helvetica'}),
+            html.Label("Select Year:", style={'color': colors['text'],
+                                              'fontFamily': 'Helvetica'}),
             dcc.Slider(
                 id='year-slider',
                 min=df_fremont['Date'].dt.year.min(),
                 max=df_fremont['Date'].dt.year.max(),
                 value=df_fremont['Date'].dt.year.min(),
-                marks={str(year): str(year) for year in range(df_fremont['Date'].dt.year.min(), df_fremont['Date'].dt.year.max()+1)},
+                marks={
+                    str(year): str(year) for year in range(
+                        df_fremont['Date'].dt.year.min(),
+                        df_fremont['Date'].dt.year.max()+1)},
                 step=None,
             )
-        ], style={'width': '50%', 'margin': 'auto', 'marginTop': '10px', 'marginBottom': '10px', 'border': '1px solid #ddd', 'border-radius': '15px', 'padding': '7px'}),
+        ], style={'width': '50%', 'margin': 'auto',
+                  'marginTop': '10px', 'marginBottom': '10px',
+                  'border': '1px solid #ddd', 'border-radius': '15px',
+                  'padding': '7px'}),
         html.Div([
-            html.Label("Select Month:", style={'color': colors['text'], 'fontFamily': 'Helvetica'}),
+            html.Label("Select Month:", style={'color': colors['text'],
+                                               'fontFamily': 'Helvetica'}),
             dcc.Slider(
                 id='month-slider',
                 min=df_fremont['Date'].dt.month.min(),
                 max=df_fremont['Date'].dt.month.max(),
                 value=df_fremont['Date'].dt.month.min(),
-                marks={str(month): str(month) for month in range(df_fremont['Date'].dt.month.min(), df_fremont['Date'].dt.month.max()+1)},
+                marks={
+                    str(month): str(month) for month in range(
+                        df_fremont['Date'].dt.month.min(),
+                        df_fremont['Date'].dt.month.max()+1)},
                 step=None,
             )
-        ], style={'width': '50%', 'margin': 'auto', 'border': '1px solid #ddd', 'padding': '10px', 'marginTop': '10px', 'marginBottom': '10px', 'border-radius': '15px'}),
-        html.H1('Data Table', style={'textAlign': 'center', 'color': colors['text'], 'fontFamily': 'Helvetica', 'marginTop': '10px', 'padding': '10px'}),
-        html.Div(id='table-container', style={'margin': 'auto', 'marginTop': '20px', 'width': 'fit-content', 'border': '1px solid #ddd', 'padding': '10px', 'border-radius': '15px', 'marginBottom': '50px'}),
-        html.H1('Report', style={'textAlign': 'center', 'color': colors['text'], 'fontFamily': 'Helvetica', 'marginTop': '10px', 'padding': '10px'}),
+        ], style={'width': '50%', 'margin': 'auto', 'border': '1px solid #ddd',
+                  'padding': '10px', 'marginTop': '10px', 'marginBottom':
+                  '10px', 'border-radius': '15px'}),
+        html.H1('Data Table', style={'textAlign': 'center',
+                                     'color': colors['text'],
+                                     'fontFamily': 'Helvetica',
+                                     'marginTop': '10px',
+                                     'padding': '10px'}),
+        html.Div(id='table-container', style={'margin': 'auto',
+                                              'marginTop': '20px',
+                                              'width': 'fit-content',
+                                              'border': '1px solid #ddd',
+                                              'padding': '10px',
+                                              'border-radius': '15px',
+                                              'marginBottom': '50px'}),
+        html.H1('Report', style={'textAlign': 'center',
+                                 'color': colors['text'],
+                                 'fontFamily': 'Helvetica',
+                                 'marginTop': '10px',
+                                 'padding': '10px'}),
         html.Div(
-            style={'width': '80%', 'margin': 'auto', 'marginTop': '10px', 'marginBottom': '90px', 'border': '6px solid #3c434e', 'border-radius': '15px'},
-            children=[dash.html.Iframe(src="/pdf", style={'width': '100%', 'height': '900px', 'textAlign': 'center', 'border': '1px solid #ddd', 'padding': '10px', 'border-radius': '15px'})]
+            style={'width': '80%', 'margin': 'auto',
+                   'marginTop': '10px', 'marginBottom': '90px',
+                   'border': '6px solid #3c434e', 'border-radius': '15px'},
+            children=[dash.html.Iframe(src="/pdf",
+                                       style={'width': '100%',
+                                              'height': '900px',
+                                              'textAlign': 'center',
+                                              'border': '1px solid #ddd',
+                                              'padding': '10px',
+                                              'border-radius': '15px'})]
         )
     ]
 )
@@ -131,17 +183,32 @@ def update_figure(year, month):
     update to the interactive graph for the user. Inputs are restricted via
     the slider but reference a specific int year and int month.
     '''
-    filtered_df_fremont = df_fremont[(df_fremont['Date'].dt.year == year) & (df_fremont['Date'].dt.month == month)]
-    filtered_df_ballard = df_ballard[(df_ballard['Date'].dt.year == year) & (df_ballard['Date'].dt.month == month)]
-    filtered_df_elliott = df_elliott[(df_elliott['Date'].dt.year == year) & (df_elliott['Date'].dt.month == month)]
-    filtered_df_burke = df_burke[(df_burke['Date'].dt.year == year) & (df_burke['Date'].dt.month == month)]
+    filtered_df_fremont = df_fremont[
+        (df_fremont['Date'].dt.year == year) &
+        (df_fremont['Date'].dt.month == month)]
+    filtered_df_ballard = df_ballard[
+        (df_ballard['Date'].dt.year == year) &
+        (df_ballard['Date'].dt.month == month)]
+    filtered_df_elliott = df_elliott[
+        (df_elliott['Date'].dt.year == year) &
+        (df_elliott['Date'].dt.month == month)]
+    filtered_df_burke = df_burke[
+        (df_burke['Date'].dt.year == year) &
+        (df_burke['Date'].dt.month == month)]
 
     figure = go.Figure()
 
     # Update scatter plot points
-    for df, name in [(filtered_df_fremont, 'Fremont Bridge Sensor'), (filtered_df_ballard, 'NW 58th St Greenway at 22nd Ave NW Sensor'),
-                     (filtered_df_elliott, 'Elliott-Bay Trail in Myrtle-Edwards Park Sensor'),
-                     (filtered_df_burke, 'Burke-Gilman Trail NE 70th St Sensor')]:
+    for df, name in [
+        (filtered_df_fremont,
+         'Fremont Bridge Sensor'),
+        (filtered_df_ballard,
+         'NW 58th St Greenway at 22nd Ave NW Sensor'),
+        (filtered_df_elliott,
+         'Elliott-Bay Trail in Myrtle-Edwards Park Sensor'),
+        (filtered_df_burke,
+         'Burke-Gilman Trail NE 70th St Sensor')
+            ]:
         circle_marker = go.Scattermapbox(
             mode="markers",
             lon=df['lon'],
@@ -173,6 +240,7 @@ def update_figure(year, month):
 
     return figure
 
+
 @app.callback(
     dash.dependencies.Output('table-container', 'children'),
     [dash.dependencies.Input('year-slider', 'value'),
@@ -183,27 +251,42 @@ def update_table(year, month):
     update_table is the function responsible for updating the data table
     displayed below the map based on the input of the sliders. The inputs to
     the function are a year and month as dictated by the slider html elements
-    and the result is an update to the interactive table for the user. Inputs
-    are restricted via the slider but reference a specific int year and int month.
+    and the result is an update to the interactive table for the user.
+    Inputs are restricted via the slider but reference a specific
+    int year and int month.
     '''
-    filtered_df_fremont = df_fremont[(df_fremont['Date'].dt.year == year) & (df_fremont['Date'].dt.month == month)]
-    filtered_df_ballard = df_ballard[(df_ballard['Date'].dt.year == year) & (df_ballard['Date'].dt.month == month)]
-    filtered_df_elliott = df_elliott[(df_elliott['Date'].dt.year == year) & (df_elliott['Date'].dt.month == month)]
-    filtered_df_burke = df_burke[(df_burke['Date'].dt.year == year) & (df_burke['Date'].dt.month == month)]
+    filtered_df_fremont = df_fremont[
+        (df_fremont['Date'].dt.year == year)
+        (df_fremont['Date'].dt.month == month)]
+    filtered_df_ballard = df_ballard[
+        (df_ballard['Date'].dt.year == year) &
+        (df_ballard['Date'].dt.month == month)]
+    filtered_df_elliott = df_elliott[
+        (df_elliott['Date'].dt.year == year) &
+        (df_elliott['Date'].dt.month == month)]
+    filtered_df_burke = df_burke[
+        (df_burke['Date'].dt.year == year) &
+        (df_burke['Date'].dt.month == month)]
 
     # Concatenate filtered dataframes into a single dataframe
-    concatenated_df = pd.concat([filtered_df_fremont, filtered_df_ballard, filtered_df_elliott, filtered_df_burke])
+    concatenated_df = pd.concat(
+        [filtered_df_fremont, filtered_df_ballard,
+         filtered_df_elliott, filtered_df_burke])
 
     # Create a datatable from the concatenated dataframe
     table = dash_table.DataTable(
         data=concatenated_df.to_dict('records'),
         columns=[{'name': col, 'id': col} for col in concatenated_df.columns],
         style_table={'maxHeight': '300px', 'overflowY': 'scroll'},
-        style_cell={'textAlign': 'left', 'backgroundColor': colors['background'], 'color': colors['text'], 'fontFamily': 'Helvetica'},
-        style_header={'backgroundColor': colors['background'], 'color': colors['text'], 'fontFamily': 'Helvetica'}
+        style_cell={'textAlign': 'left',
+                    'backgroundColor': colors['background'],
+                    'color': colors['text'], 'fontFamily': 'Helvetica'},
+        style_header={'backgroundColor': colors['background'],
+                      'color': colors['text'], 'fontFamily': 'Helvetica'}
     )
 
     return table
+
 
 if __name__ == '__main__':
     app.run_server(debug=True)

@@ -1,6 +1,6 @@
 '''
 CSE163 Final Project Group 3
-Ani ramadurai, Annika halvorson, Henry Ramstad
+Ani Ramadurai, Annika Halvorson, Henry Ramstad
 
 filter.py is the file responsible for loading data from the raw data folder
 and transforming it into acceptable format to be loaded in the interactive map
@@ -16,10 +16,10 @@ END_DATE = pd.to_datetime('2022-06-30')
 
 def main():
     df_burke = pd.read_csv(
-        'Raw Data/Burke_Gilman_Trail_north_of_NE_70th_St_Bicycle_and_Pedestrian_Counter.csv',
+        'Raw Data/Burke_Gilman_Trail_north_of_NE_70th_St.csv',
         index_col='Date', parse_dates=True)
     df_elliott = pd.read_csv(
-        'Raw Data/Elliott_Bay_Trail_in_Myrtle_Edwards_Park_Bicycle_and_Pedestrian_Counter.csv',
+        'Raw Data/Elliott_Bay_Trail_in_Myrtle_Edwards_Park.csv',
         index_col='Date', parse_dates=True)
     df_fremont = pd.read_csv(
         'Raw Data/Fremont_Bridge_Bicycle_Counter.csv',
