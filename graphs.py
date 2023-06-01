@@ -16,11 +16,11 @@ df_ballard['Date'] = pd.to_datetime(df_ballard['Date'])
 df_fremont['Date'] = pd.to_datetime(df_fremont['Date'])
 
 
-# pre pandemic is January 1st, 2018 through December 31st, 2019 
+# pre pandemic is January 1st, 2018 through December 31st, 2019
 PRE_PANDEMIC_START = pd.to_datetime('2018-01-31')
 PRE_PANDEMIC_END = pd.to_datetime('2019-12-31')
 
-# pandemic is January 1st, 2020 through December 31st, 2021 
+# pandemic is January 1st, 2020 through December 31st, 2021
 PANDEMIC_START = pd.to_datetime('2020-01-31')
 PANDEMIC_END = pd.to_datetime('2021-12-31')
 
@@ -201,6 +201,8 @@ sns.relplot(
     data=df_post_fremont, x="Date", y="bike_sum", kind="line",
     height=6, aspect=1.75
 )
+max_value = df_post_fremont['bike_sum'].max()
+print(max_value)
 plt.xticks(rotation=-30)
 plt.subplots_adjust(top=0.9, bottom=0.15)
 plt.title('Fremont Bridge Bike Data (Post-Pandemic)')
