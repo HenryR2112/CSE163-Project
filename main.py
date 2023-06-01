@@ -3,6 +3,7 @@ import dash
 from dash import Dash, dcc, html, dash_table
 import pandas as pd
 
+#import datasets and convert to datetime for easier manipulation
 df_fremont = pd.read_csv('Filtered Data/fremont_filtered.csv')
 df_ballard = pd.read_csv('Filtered Data/ballard_filtered.csv')
 df_elliott = pd.read_csv('Filtered Data/elliot_filtered.csv')
@@ -12,18 +13,22 @@ df_ballard['Date'] = pd.to_datetime(df_ballard['Date'])
 df_elliott['Date'] = pd.to_datetime(df_elliott['Date'])
 df_burke['Date'] = pd.to_datetime(df_burke['Date'])
 
+#set style guide
 colors = {
     'background': '#3c434e',
     'text': '#f0f0f0'
 }
 
+#dash main method name
 app = Dash(__name__)
 
 figure = go.Figure()
 
+#scaling factor selected to ensure that the diameter of the circles does
+#not exceed the graph visually. Selected by trial and error.
 SCALING_FACTOR = 0.12
 
-# Add initial scatter plots
+# Add initial scatter plot points
 for df, name in [(df_fremont, 'Fremont Bridge Sensor'), (df_ballard, 'NW 58th St Greenway at 22nd Ave NW Sensor'),
                  (df_elliott, 'Elliott-Bay Trail in Myrtle-Edwards Park Sensor'),
                  (df_burke, 'Burke-Gilman Trail NE 70th St Sensor')]:
@@ -43,6 +48,8 @@ for df, name in [(df_fremont, 'Fremont Bridge Sensor'), (df_ballard, 'NW 58th St
     )
     figure.add_trace(circle_marker)
 
+#establishes custom made map styling using personal API access token and
+#additional style elements.
 figure.update_layout(
     mapbox=dict(
         style='mapbox://styles/henryr2112/cli1742pb00sw01pzckx4a91l',
@@ -56,6 +63,8 @@ figure.update_layout(
     font={'color': colors['text']}
 )
 
+#App HTML written using Dash syntax including the text and drawing of the graph,
+# table, sliders, and additional elements.
 app.layout = html.Div(
     style={'backgroundColor': colors['background']},
     children=[
@@ -94,13 +103,21 @@ app.layout = html.Div(
     ]
 )
 
-
+#callback decorator to provide functionality and interactivity to call between
+#input and output of the server.
 @app.callback(
     dash.dependencies.Output('map', 'figure'),
     [dash.dependencies.Input('year-slider', 'value'),
      dash.dependencies.Input('month-slider', 'value')]
 )
 def update_figure(year, month):
+    '''
+    update_figure is the function responsible for changing the graph display
+    based on the input of the sliders. The inputs to the function are a year
+    and month as dictated by the slider html elements and the result is an
+    update to the interactive graph for the user. Inputs are restricted via
+    the slider but reference a specific int year and int month.
+    '''
     filtered_df_fremont = df_fremont[(df_fremont['Date'].dt.year == year) & (df_fremont['Date'].dt.month == month)]
     filtered_df_ballard = df_ballard[(df_ballard['Date'].dt.year == year) & (df_ballard['Date'].dt.month == month)]
     filtered_df_elliott = df_elliott[(df_elliott['Date'].dt.year == year) & (df_elliott['Date'].dt.month == month)]
@@ -108,7 +125,7 @@ def update_figure(year, month):
 
     figure = go.Figure()
 
-    # Update scatter plots with filtered data
+    # Update scatter plot points
     for df, name in [(filtered_df_fremont, 'Fremont Bridge Sensor'), (filtered_df_ballard, 'NW 58th St Greenway at 22nd Ave NW Sensor'),
                      (filtered_df_elliott, 'Elliott-Bay Trail in Myrtle-Edwards Park Sensor'),
                      (filtered_df_burke, 'Burke-Gilman Trail NE 70th St Sensor')]:
@@ -143,13 +160,20 @@ def update_figure(year, month):
 
     return figure
 
-
+#decorator to provide input output capabilites to table element
 @app.callback(
     dash.dependencies.Output('table-container', 'children'),
     [dash.dependencies.Input('year-slider', 'value'),
      dash.dependencies.Input('month-slider', 'value')]
 )
 def update_table(year, month):
+    '''
+    update_table is the function responsible for changing the table display
+    based on the input of the sliders. The inputs to the function are a year
+    and month as dictated by the slider html elements and the result is an
+    update to the interactive table for the user. Inputs are restricted via
+    the slider but reference a specific int year and int month.
+    '''
     filtered_df_fremont = df_fremont[(df_fremont['Date'].dt.year == year) & (df_fremont['Date'].dt.month == month)]
     filtered_df_ballard = df_ballard[(df_ballard['Date'].dt.year == year) & (df_ballard['Date'].dt.month == month)]
     filtered_df_elliott = df_elliott[(df_elliott['Date'].dt.year == year) & (df_elliott['Date'].dt.month == month)]
