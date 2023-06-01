@@ -4,60 +4,19 @@ Henry Ramstad, Ani Ramadurai, Annika Halvorson
 
 Filter_test.py defines the testing functions for filter.py and ensures
 that as the datasets are manipulated they return the correct information.
+
+The function assert_equals was taken directly from the CSE163_utils files
+provided for the assesments as a framework to build additional functions.
 '''
 import pandas as pd
 from typing import Any
 import math
 import numpy as np
-TOLERANCE = 0.001
 
-
-
-def check_approx_equals(expected: Any, received: Any) -> bool:
-    """
-    Checks received against expected, and returns whether or
-    not they match (True if they do, False otherwise).
-    If the argument is a float, will do an approximate check.
-    If the arugment is a data structure will do an approximate check
-    on all of its contents.
-    """
-    try:
-        if type(expected) == dict:
-            # first check that keys match, then check that the
-            # values approximately match
-            return expected.keys() == received.keys() and \
-                all([check_approx_equals(expected[k], received[k])
-                    for k in expected.keys()])
-        elif type(expected) == list or type(expected) == set:
-            # Checks both lists/sets contain the same values
-            return len(expected) == len(received) and \
-                all([check_approx_equals(v1, v2)
-                     for v1, v2 in zip(expected, received)])
-        elif type(expected) == float:
-            return math.isclose(expected, received, abs_tol=TOLERANCE)
-        elif type(expected) == np.ndarray:
-            return np.allclose(expected, received, atol=TOLERANCE,
-                               equal_nan=True)
-        elif type(expected) == pd.DataFrame:
-            try:
-                pd.testing.assert_frame_equal(expected, received,
-                                              atol=TOLERANCE)
-                return True
-            except AssertionError:
-                return False
-        elif type(expected) == pd.Series:
-            try:
-                pd.testing.assert_series_equal(expected, received,
-                                               atol=TOLERANCE)
-                return True
-            except AssertionError:
-                return False
-        else:
-            return expected == received
-    except Exception as e:
-        print(f"EXCEPTION: Raised when checking check_approx_equals {e}")
-        return False
-
+DF_BALLARD = ''
+DF_FREMONT = ''
+DF_BURKE = ''
+DF_ELLIOTT = ''
 
 def assert_equals(expected: Any, received: Any) -> None:
     """
@@ -95,57 +54,35 @@ def test_row_count(df: pd.DataFrame, count: int) -> None:
     assert_equals(count, df.shape[0])
 
 
-def filter_range_test() -> None:
+def test_lat_lon(df: pd.DataFrame, lat: float, lon: float) -> None:
     '''
-    a test function for filter_range in
-    a3_pandas and a3_manual python files
+    a test function to evaluate if the generated columns lat
+    and lon in the modified dataframes match through the entire
+    column.
     '''
-    pass
-
-
-def mean_attack_for_type_test() -> None:
-    '''
-    a test function for mean_attack_for_type in
-    a3_pandas and a3_manual python files
-    '''
-    pass
-
-
-
-def count_types_test() -> None:
-    '''
-    a test function for count_types in
-    a3_pandas and a3_manual python files
-    '''
-    pass
-
-
-
-def mean_attack_per_type_test() -> None:
-    '''
-    a test function for mean_attack_per_type in
-    a3_pandas and a3_manual python files
-    '''
-    pass
+    assert_equals((df['lon'][0], df['lat'][0]), (lon, lat))
+    assert_equals((df['lon'][10], df['lat'][10]), (lon, lat))
+    assert_equals((df['lon'][50], df['lat'][50]), (lon, lat))
 
 
 def main():
-    test_row_count(df_fremont, 45251)
-    test_column_count(df_fremont, 2)
-    test_column_count(df_ballard, 2)
-    test_column_count(df_burke, 2)
-    test_column_count(df_elliott, 2)
+    test_row_count(DF_FREMONT, 45251)
+    test_row_count(DF_BALLARD, 45251)
+    test_row_count(DF_BURKE, 45251)
+    test_row_count(DF_ELLIOTT, 45251)
+    
+    test_column_count(DF_FREMONT, 3)
+    test_column_count(DF_BALLARD, 3)
+    test_column_count(DF_BURKE, 3)
+    test_column_count(DF_ELLIOTT, 3)
+    
+    test_lat_lon(DF_FREMONT, -120, 20)
+    test_lat_lon(DF_BALLARD, -120, 20)
+    test_lat_lon(DF_BURKE, -120, 20)
+    test_lat_lon(DF_ELLIOTT, -120, 20)
 
 
-    test_max_level()
 
-    filter_range_test()
-
-    mean_attack_for_type_test()
-
-    count_types_test()
-
-    mean_attack_per_type_test()
 
 
 if __name__ == "__main__":
