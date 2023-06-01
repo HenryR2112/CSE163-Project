@@ -296,8 +296,6 @@ def plot_post_fremont(df_fremont: pd.DataFrame) -> None:
         data=df_post_fremont, x="Date", y="bike_sum", kind="line",
         height=6, aspect=1.75
     )
-    max_value = df_post_fremont['bike_sum'].max()
-    print(max_value)
     plt.xticks(rotation=-30)
     plt.subplots_adjust(top=0.9, bottom=0.15)
     plt.title('Fremont Bridge Bike Data (Post-Pandemic)')
@@ -307,7 +305,21 @@ def plot_post_fremont(df_fremont: pd.DataFrame) -> None:
 
 
 def main():
-    plot_pre_burke()
+    plot_pre_burke(df_burke)
+    plot_during_burke(df_burke)
+    plot_post_burke(df_burke)
+
+    plot_pre_ballard(df_ballard)
+    plot_during_ballard(df_ballard)
+    plot_post_ballard(df_ballard)
+
+    plot_pre_elliot(df_elliot)
+    plot_during_elliot(df_elliot)
+    plot_post_elliot(df_elliot)
+
+    plot_pre_fremont(df_fremont)
+    plot_pandemic_fremont(df_fremont)
+    plot_post_fremont(df_fremont)
 
 
 if __name__ == "__main__":
