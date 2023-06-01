@@ -3,7 +3,7 @@ import dash
 from dash import Dash, dcc, html, dash_table
 import pandas as pd
 
-#import datasets and convert to datetime for easier manipulation
+# import datasets and convert to datetime for easier manipulation
 df_fremont = pd.read_csv('Filtered Data/fremont_filtered.csv')
 df_ballard = pd.read_csv('Filtered Data/ballard_filtered.csv')
 df_elliott = pd.read_csv('Filtered Data/elliot_filtered.csv')
@@ -13,19 +13,19 @@ df_ballard['Date'] = pd.to_datetime(df_ballard['Date'])
 df_elliott['Date'] = pd.to_datetime(df_elliott['Date'])
 df_burke['Date'] = pd.to_datetime(df_burke['Date'])
 
-#set style guide
+# set style guide
 colors = {
     'background': '#3c434e',
     'text': '#f0f0f0'
 }
 
-#dash main method name
+# dash main method name
 app = Dash(__name__)
 
 figure = go.Figure()
 
-#scaling factor selected to ensure that the diameter of the circles does
-#not exceed the graph visually. Selected by trial and error.
+# scaling factor selected to ensure that the diameter of the circles does
+# not exceed the graph visually. Selected by trial and error.
 SCALING_FACTOR = 0.12
 
 # Add initial scatter plot points
@@ -48,8 +48,8 @@ for df, name in [(df_fremont, 'Fremont Bridge Sensor'), (df_ballard, 'NW 58th St
     )
     figure.add_trace(circle_marker)
 
-#establishes custom made map styling using personal API access token and
-#additional style elements.
+# establishes custom made map styling using personal API access token and
+# additional style elements.
 figure.update_layout(
     mapbox=dict(
         style='mapbox://styles/henryr2112/cli1742pb00sw01pzckx4a91l',
@@ -63,7 +63,7 @@ figure.update_layout(
     font={'color': colors['text']}
 )
 
-#App HTML written using Dash syntax including the text and drawing of the graph,
+# App HTML written using Dash syntax including the text and drawing of the graph,
 # table, sliders, and additional elements.
 app.layout = html.Div(
     style={'backgroundColor': colors['background']},
@@ -103,8 +103,9 @@ app.layout = html.Div(
     ]
 )
 
-#callback decorator to provide functionality and interactivity to call between
-#input and output of the server.
+
+# callback decorator to provide functionality and interactivity to call between
+# input and output of the server.
 @app.callback(
     dash.dependencies.Output('map', 'figure'),
     [dash.dependencies.Input('year-slider', 'value'),
@@ -160,7 +161,8 @@ def update_figure(year, month):
 
     return figure
 
-#decorator to provide input output capabilites to table element
+
+# decorator to provide input output capabilites to table element
 @app.callback(
     dash.dependencies.Output('table-container', 'children'),
     [dash.dependencies.Input('year-slider', 'value'),
