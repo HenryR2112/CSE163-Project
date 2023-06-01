@@ -5,6 +5,8 @@ to their most current versions:
 2. Dash
 3. Pandas
 4. Numpy
+5. PDFjs (for displaying the report)
+6. Matplotlib
 
 Installation guide:
 To access the necessary dependencies use the following syntax
