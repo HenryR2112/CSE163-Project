@@ -5,7 +5,9 @@ Ani Ramadurai, Annika Halvorson, Henry Ramstad
 filter.py is the file responsible for loading data from the raw data folder
 and transforming it into acceptable format to be loaded in the interactive map
 in the main.py file. Filtering involved resampling, focusing on certain years,
-and redefining columns to create 4 identical columns of data
+and redefining columns to create 4 identical columns of data. Certain lines in
+this file fail flake8's line length due to very long column names in the
+original dataset.
 '''
 import pandas as pd
 

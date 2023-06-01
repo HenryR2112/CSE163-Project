@@ -1,3 +1,16 @@
+'''
+CSE163 Final Project Group 3
+Henry Ramstad, Ani Ramadurai, Annika Halvorson
+
+main.py is responsible for generating the UI and interactive
+plots in the webpage as well as the embed PDF of the report. The
+general strucuture of the app includes update functions for the slider
+elements as well as app.layout which is a special variable which contains
+pseudo-HTML and CSS for the styling and layout. Callback decorators are used
+to provide interaction between the UI and Server side information and the main
+method pattern follows the standard special to dash applications. Certain lines
+in this file fail the flake8 line standard due to the syntax of Dash. 
+'''
 import plotly.graph_objects as go
 import dash
 from dash import Dash, dcc, html, dash_table
@@ -82,15 +95,14 @@ app.layout = html.Div(
     style={'backgroundColor': colors['background'], 'padding': '20px'},
     children=[
         html.H1(
-            "Understanding COVID-19’s Effect on Bicycle Route Usage in Seattle from 2018 to 2022",
+            "Understanding COVID-19's Effect on Bicycle Route Usage in Seattle from 2018 to 2022",
             style={'textAlign': 'center', 'color': colors['text'],
                    'fontFamily': 'Helvetica', 'border': '1px solid #ddd',
                    'padding': '10px', 'border-radius': '15px'}),
         html.P(
             "The map below displays interactive visuals of our data across 4 Seattle area bike sensors",
             style={'color': colors['text'], 'fontFamily': 'Helvetica',
-                   'padding': '2px', 'border': '1px solid #ddd',
-                   'margin': '10px', 'border-radius': '5px'}),
+                   'padding': '2px', 'margin': '10px'}),
         dcc.Graph(
             id='map',
             figure=figure,
@@ -230,7 +242,7 @@ def update_figure(year, month):
             style='mapbox://styles/henryr2112/cli1742pb00sw01pzckx4a91l',
             accesstoken='pk.eyJ1IjoiaGVucnlyMjExMiIsImEiOiJjbGkxNnVkOXgwNnJuM21wanIzNWFtNGdjIn0.hFCNL4Sonao_UHwDoa6C5g',
             center=dict(lon=-122.333, lat=47.639),
-            zoom=11.77,
+            zoom=11,
             pitch=30
         ),
         plot_bgcolor=colors['background'],
@@ -256,7 +268,7 @@ def update_table(year, month):
     int year and int month.
     '''
     filtered_df_fremont = df_fremont[
-        (df_fremont['Date'].dt.year == year)
+        (df_fremont['Date'].dt.year == year) &
         (df_fremont['Date'].dt.month == month)]
     filtered_df_ballard = df_ballard[
         (df_ballard['Date'].dt.year == year) &
