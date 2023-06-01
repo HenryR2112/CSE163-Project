@@ -29,183 +29,236 @@ POST_PANDEMIC_START = pd.to_datetime('2022-01-31')
 POST_PANDEMIC_END = pd.to_datetime('2022-06-30')
 
 # burke line plot pre pandemic
-df_pre_burke = df_burke.loc[
+def plot_pre_burke(pd.dataframe):
+    '''
+    comment
+    '''
+    df_pre_burke = df_burke.loc[
     (df_burke['Date'] >= PRE_PANDEMIC_START) & (df_burke['Date'] <= PRE_PANDEMIC_END)
-]
-sns.relplot(
-    data=df_pre_burke, x="Date", y="bike_sum", kind="line",
-    height=6, aspect=1.75
-)
-plt.xticks(rotation=-30)
-plt.subplots_adjust(top=0.9, bottom=0.15)
-plt.title('Burke Gilman Trail Bike Data (Pre-Pandemic)')
-plt.xlabel('Month and Year')
-plt.ylabel('Bike Count')
-plt.savefig('Burke graphs\pre_burke.png')
+    ]
+    sns.relplot(
+        data=df_pre_burke, x="Date", y="bike_sum", kind="line",
+        height=6, aspect=1.75
+    )
+    plt.xticks(rotation=-30)
+    plt.subplots_adjust(top=0.9, bottom=0.15)
+    plt.title('Burke Gilman Trail Bike Data (Pre-Pandemic)')
+    plt.xlabel('Month and Year')
+    plt.ylabel('Bike Count')
+    plt.savefig('Burke graphs\pre_burke.png')
 
 # burke line plot during pandemic
-df_during_burke = df_burke.loc[
-    (df_burke['Date'] >= PANDEMIC_START) & (df_burke['Date'] <= PANDEMIC_END)
-]
-sns.relplot(
-    data=df_during_burke, x="Date", y="bike_sum", kind="line",
-    height=6, aspect=1.75
-)
-plt.xticks(rotation=-30)
-plt.subplots_adjust(top=0.9, bottom=0.15)
-plt.title('Burke Gilman Trail Bike Data (Pandemic)')
-plt.xlabel('Month and Year')
-plt.ylabel('Bike Count')
-plt.savefig('Burke graphs\pandemic_burke.png')
+def plot_during_burke(pd.dataframe):
+    '''
+    comment
+    '''
+    df_during_burke = df_burke.loc[
+        (df_burke['Date'] >= PANDEMIC_START) & (df_burke['Date'] <= PANDEMIC_END)
+    ]
+    sns.relplot(
+        data=df_during_burke, x="Date", y="bike_sum", kind="line",
+        height=6, aspect=1.75
+    )
+    plt.xticks(rotation=-30)
+    plt.subplots_adjust(top=0.9, bottom=0.15)
+    plt.title('Burke Gilman Trail Bike Data (Pandemic)')
+    plt.xlabel('Month and Year')
+    plt.ylabel('Bike Count')
+    plt.savefig('Burke graphs\pandemic_burke.png')
 
 # burke line plot post pandemic
-df_post_burke = df_burke.loc[
-    (df_burke['Date'] >= POST_PANDEMIC_START) & (df_burke['Date'] <= POST_PANDEMIC_END)
-]
-sns.relplot(
+def plot_post_burke(pd.dataframe):
+    '''
+    comment
+    '''
+    df_post_burke = df_burke.loc[
+        (df_burke['Date'] >= POST_PANDEMIC_START) & (df_burke['Date'] <= POST_PANDEMIC_END)
+    ]
+    sns.relplot(
     data=df_post_burke, x='Date', y="bike_sum", kind='line',
     height=6, aspect=1.75
-)
-plt.xticks(rotation=-30)
-plt.subplots_adjust(top=0.9, bottom=0.15)
-plt.title('Burke Gilman Trail Bike Data (Post-Pandemic)')
-plt.xlabel('Month and Year')
-plt.ylabel('Bike Count')
-plt.savefig('Burke graphs/post_burke.png')
+    )
+    plt.xticks(rotation=-30)
+    plt.subplots_adjust(top=0.9, bottom=0.15)
+    plt.title('Burke Gilman Trail Bike Data (Post-Pandemic)')
+    plt.xlabel('Month and Year')
+    plt.ylabel('Bike Count')
+    plt.savefig('Burke graphs/post_burke.png')
 
 # ballard line pre pandemic
-df_pre_ballard = df_ballard.loc[
+def plot_pre_ballard(pd.dataframe):
+    '''
+    comment
+    '''
+    df_pre_ballard = df_ballard.loc[
     (df_ballard['Date'] >= PRE_PANDEMIC_START) & (df_burke['Date'] <= PRE_PANDEMIC_END)
-]
-sns.relplot(
-    data=df_pre_ballard, x="Date", y="bike_sum", kind="line",
-    height=6, aspect=1.75
-)
-plt.xticks(rotation=-30)
-plt.subplots_adjust(top=0.9, bottom=0.15)
-plt.title('Ballard Bike Data (Pre-Pandemic)')
+    ]
+    sns.relplot(
+        data=df_pre_ballard, x="Date", y="bike_sum", kind="line",
+        height=6, aspect=1.75
+    )
+    plt.xticks(rotation=-30)
+    plt.subplots_adjust(top=0.9, bottom=0.15)
+    plt.title('Ballard Bike Data (Pre-Pandemic)')
 plt.xlabel('Month and Year')
 plt.ylabel('Bike Count')
 plt.savefig('Ballard graphs\pre_ballard.png')
 
 # ballard line plot pandemic
-df_during_ballard = df_ballard.loc[
-    (df_ballard['Date'] >= PANDEMIC_START) & (df_burke['Date'] <= PANDEMIC_END)
-]
-sns.relplot(
-    data=df_during_ballard, x="Date", y="bike_sum", kind="line",
-    height=6, aspect=1.75
-)
-plt.xticks(rotation=-30)
-plt.subplots_adjust(top=0.9, bottom=0.15)
-plt.title('Ballard Bike Data (Pandemic)')
-plt.xlabel('Month and Year')
-plt.ylabel('Bike Count')
-plt.savefig('Ballard graphs\pandemic_ballard.png')
+def plot_during_ballard(pd.dataframe):
+    '''
+    comment
+    '''
+    df_during_ballard = df_ballard.loc[
+        (df_ballard['Date'] >= PANDEMIC_START) & (df_burke['Date'] <= PANDEMIC_END)
+    ]
+    sns.relplot(
+        data=df_during_ballard, x="Date", y="bike_sum", kind="line",
+        height=6, aspect=1.75
+    )
+    plt.xticks(rotation=-30)
+    plt.subplots_adjust(top=0.9, bottom=0.15)
+    plt.title('Ballard Bike Data (Pandemic)')
+    plt.xlabel('Month and Year')
+    plt.ylabel('Bike Count')
+    plt.savefig('Ballard graphs\pandemic_ballard.png')
 
 # ballard line plot post pandemic
-df_post_ballard = df_ballard.loc[
-    (df_ballard['Date'] >= POST_PANDEMIC_START) & (df_burke['Date'] <= POST_PANDEMIC_END)
-]
-sns.relplot(
-    data=df_post_ballard, x="Date", y="bike_sum", kind="line",
-    height=6, aspect=1.75
-)
-plt.xticks(rotation=-30)
-plt.subplots_adjust(top=0.9, bottom=0.15)
-plt.title('Ballard Bike Data (Post-Pandemic)')
-plt.xlabel('Month and Year')
-plt.ylabel('Bike Count')
-plt.savefig('Ballard graphs\post_ballard.png')
+def plot_post_ballard():
+    '''
+    
+    '''
+    df_post_ballard = df_ballard.loc[
+        (df_ballard['Date'] >= POST_PANDEMIC_START) & (df_burke['Date'] <= POST_PANDEMIC_END)
+    ]
+    sns.relplot(
+        data=df_post_ballard, x="Date", y="bike_sum", kind="line",
+        height=6, aspect=1.75
+    )
+    plt.xticks(rotation=-30)
+    plt.subplots_adjust(top=0.9, bottom=0.15)
+    plt.title('Ballard Bike Data (Post-Pandemic)')
+    plt.xlabel('Month and Year')
+    plt.ylabel('Bike Count')
+    plt.savefig('Ballard graphs\post_ballard.png')
 
-# elliot line plot pre pandemic
-df_pre_elliot = df_elliot.loc[
-    (df_elliot['Date'] >= PRE_PANDEMIC_START) & (df_burke['Date'] <= PRE_PANDEMIC_END)
-]
-sns.relplot(
-    data=df_pre_elliot, x="Date", y="bike_sum", kind="line",
-    height=6, aspect=1.75
-)
-plt.xticks(rotation=-30)
-plt.subplots_adjust(top=0.9, bottom=0.15)
-plt.title('Elliot Bay Bike Data (Pre-Pandemic)')
-plt.xlabel('Month and Year')
-plt.ylabel('Bike Count')
-plt.savefig('Elliot graphs\pre_elliot.png')
+    # elliot line plot pre pandemic
+def plot_pre_elliot():
+    '''
+    
+    '''
+    df_pre_elliot = df_elliot.loc[
+        (df_elliot['Date'] >= PRE_PANDEMIC_START) & (df_burke['Date'] <= PRE_PANDEMIC_END)
+    ]
+    sns.relplot(
+        data=df_pre_elliot, x="Date", y="bike_sum", kind="line",
+        height=6, aspect=1.75
+    )
+    plt.xticks(rotation=-30)
+    plt.subplots_adjust(top=0.9, bottom=0.15)
+    plt.title('Elliot Bay Bike Data (Pre-Pandemic)')
+    plt.xlabel('Month and Year')
+    plt.ylabel('Bike Count')
+    plt.savefig('Elliot graphs\pre_elliot.png')
 
-# elliot line plot pandemic
-df_during_elliot = df_elliot.loc[
-    (df_elliot['Date'] >= PANDEMIC_START) & (df_burke['Date'] <= PANDEMIC_END)
-]
-sns.relplot(
-    data=df_during_elliot, x="Date", y="bike_sum", kind="line",
-    height=6, aspect=1.75
-)
-plt.xticks(rotation=-30)
-plt.subplots_adjust(top=0.9, bottom=0.15)
-plt.title('Elliot Bay Bike Data (Pandemic)')
-plt.xlabel('Month and Year')
-plt.ylabel('Bike Count')
-plt.savefig('Elliot graphs\pandemic_elliot.png')
+def plot_during_elliot():
+    '''
+    
+    '''
+    # elliot line plot pandemic
+    df_during_elliot = df_elliot.loc[
+        (df_elliot['Date'] >= PANDEMIC_START) & (df_burke['Date'] <= PANDEMIC_END)
+    ]
+    sns.relplot(
+        data=df_during_elliot, x="Date", y="bike_sum", kind="line",
+        height=6, aspect=1.75
+    )
+    plt.xticks(rotation=-30)
+    plt.subplots_adjust(top=0.9, bottom=0.15)
+    plt.title('Elliot Bay Bike Data (Pandemic)')
+    plt.xlabel('Month and Year')
+    plt.ylabel('Bike Count')
+    plt.savefig('Elliot graphs\pandemic_elliot.png')
 
-# elliot line plot post pandemic
-df_post_elliot = df_elliot.loc[
-    (df_elliot['Date'] >= POST_PANDEMIC_START) & (df_burke['Date'] <= POST_PANDEMIC_END)
-]
-sns.relplot(
-    data=df_post_elliot, x="Date", y="bike_sum", kind="line",
-    height=6, aspect=1.75
-)
-plt.xticks(rotation=-30)
-plt.subplots_adjust(top=0.9, bottom=0.15)
-plt.title('Elliot Bay Bike Data (Post-Pandemic)')
-plt.xlabel('Month and Year')
-plt.ylabel('Bike Count')
-plt.savefig('Elliot graphs\post_elliot.png')
+def plot_post_elliot():
+    '''
+    
+    '''
+    # elliot line plot post pandemic
+    df_post_elliot = df_elliot.loc[
+        (df_elliot['Date'] >= POST_PANDEMIC_START) & (df_burke['Date'] <= POST_PANDEMIC_END)
+    ]
+    sns.relplot(
+        data=df_post_elliot, x="Date", y="bike_sum", kind="line",
+        height=6, aspect=1.75
+    )
+    plt.xticks(rotation=-30)
+    plt.subplots_adjust(top=0.9, bottom=0.15)
+    plt.title('Elliot Bay Bike Data (Post-Pandemic)')
+    plt.xlabel('Month and Year')
+    plt.ylabel('Bike Count')
+    plt.savefig('Elliot graphs\post_elliot.png')
 
-# fremont line plot pre pandemic
-df_pre_fremont = df_fremont.loc[
-    (df_fremont['Date'] >= PRE_PANDEMIC_START) & (df_fremont['Date'] <= PRE_PANDEMIC_END)
-]
-sns.relplot(
-    data=df_pre_fremont, x="Date", y="bike_sum", kind="line",
-    height=6, aspect=1.75
-)
-plt.xticks(rotation=-30)
-plt.subplots_adjust(top=0.9, bottom=0.15)
-plt.title('Fremont Bridge Bike Data (Pre-Pandemic)')
-plt.xlabel('Month and Year')
-plt.ylabel('Bike Count')
-plt.savefig('Fremont graphs\pre_fremont.png')
+def plot_pre_fremont():
+    '''
+    
+    '''
+    # fremont line plot pre pandemic
+    df_pre_fremont = df_fremont.loc[
+        (df_fremont['Date'] >= PRE_PANDEMIC_START) & (df_fremont['Date'] <= PRE_PANDEMIC_END)
+    ]
+    sns.relplot(
+        data=df_pre_fremont, x="Date", y="bike_sum", kind="line",
+        height=6, aspect=1.75
+    )
+    plt.xticks(rotation=-30)
+    plt.subplots_adjust(top=0.9, bottom=0.15)
+    plt.title('Fremont Bridge Bike Data (Pre-Pandemic)')
+    plt.xlabel('Month and Year')
+    plt.ylabel('Bike Count')
+    plt.savefig('Fremont graphs\pre_fremont.png')
 
-# fremont line plot pandemic
-df_during_fremont = df_fremont.loc[
-    (df_fremont['Date'] >= PANDEMIC_START) & (df_fremont['Date'] <= PANDEMIC_END)
-]
-sns.relplot(
-    data=df_during_fremont, x="Date", y="bike_sum", kind="line",
-    height=6, aspect=1.75
-)
-plt.xticks(rotation=-30)
-plt.subplots_adjust(top=0.9, bottom=0.15)
-plt.title('Fremont Bridge Bike Data (Pandemic)')
-plt.xlabel('Month and Year')
-plt.ylabel('Bike Count')
-plt.savefig('Fremont graphs\pandemic_fremont.png')
+def plot_pandemic_fremont():
+    '''
+    
+    '''
+    # fremont line plot pandemic
+    df_during_fremont = df_fremont.loc[
+        (df_fremont['Date'] >= PANDEMIC_START) & (df_fremont['Date'] <= PANDEMIC_END)
+    ]
+    sns.relplot(
+        data=df_during_fremont, x="Date", y="bike_sum", kind="line",
+        height=6, aspect=1.75
+    )
+    plt.xticks(rotation=-30)
+    plt.subplots_adjust(top=0.9, bottom=0.15)
+    plt.title('Fremont Bridge Bike Data (Pandemic)')
+    plt.xlabel('Month and Year')
+    plt.ylabel('Bike Count')
+    plt.savefig('Fremont graphs\pandemic_fremont.png')
 
-# fremont line plot post pandemic
-df_post_fremont = df_fremont.loc[
-    (df_fremont['Date'] >= POST_PANDEMIC_START) & (df_fremont['Date'] <= POST_PANDEMIC_END)
-]
-sns.relplot(
-    data=df_post_fremont, x="Date", y="bike_sum", kind="line",
-    height=6, aspect=1.75
-)
-max_value = df_post_fremont['bike_sum'].max()
-print(max_value)
-plt.xticks(rotation=-30)
-plt.subplots_adjust(top=0.9, bottom=0.15)
-plt.title('Fremont Bridge Bike Data (Post-Pandemic)')
-plt.xlabel('Month and Year')
-plt.ylabel('Bike Count')
-plt.savefig('Fremont graphs\post_fremont.png')
+def plot_post_fremont():
+    '''
+    
+    '''
+    # fremont line plot post pandemic
+    df_post_fremont = df_fremont.loc[
+        (df_fremont['Date'] >= POST_PANDEMIC_START) & (df_fremont['Date'] <= POST_PANDEMIC_END)
+    ]
+    sns.relplot(
+        data=df_post_fremont, x="Date", y="bike_sum", kind="line",
+        height=6, aspect=1.75
+    )
+    max_value = df_post_fremont['bike_sum'].max()
+    print(max_value)
+    plt.xticks(rotation=-30)
+    plt.subplots_adjust(top=0.9, bottom=0.15)
+    plt.title('Fremont Bridge Bike Data (Post-Pandemic)')
+    plt.xlabel('Month and Year')
+    plt.ylabel('Bike Count')
+    plt.savefig('Fremont graphs\post_fremont.png')
+
+def main():
+
+if __name__ == "__main__":
+    main()
