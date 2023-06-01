@@ -1,3 +1,10 @@
+'''
+CSE163 Final Project Group 3
+Henry Ramstad, Ani Ramadurai, Annika Halvorson
+
+Filter_test.py defines the testing functions for filter.py and ensures
+that as the datasets are manipulated they return the correct information.
+'''
 import pandas as pd
 from typing import Any
 import math
