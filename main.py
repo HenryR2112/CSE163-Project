@@ -35,7 +35,6 @@ colors = {
 
 # dash main method name
 app = Dash(__name__)
-server = flask.Flask(__name__)
 
 figure = go.Figure()
 
