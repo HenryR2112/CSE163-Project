@@ -4,6 +4,8 @@ Understanding Covid-19’s effect on bicycle route usage in Seattle (Fremont, Cr
 
 Annika Halvorson, Ani Ramadurai, Henry Ramstad
 
+https://covid-19-bicycle-route-usage-analysis.onrender.com
+
 Research Question:
 The research questions posed by this group fall into two categories: general data analytics, and Covid specific analysis. For general data analytics questions, we are primarily interested in how each sensor's data compares to its fellow sensors regardless of the covid pandemic. This analysis will take a holistic view of each sensor's data over a long period and provide an analysis of why certain sensors may be more popular. The second general question involves asking questions about trends in the data pre, during, and post covid. This second portion involves things like overall trends of bike path use as well as examining if certain months are more popular than others. The second portion of the questioning looks at how Covid has affected the data. For the sake of our analysis, the pandemic began on January 1st, 2020, and ended on January 1st, 2022. This is an oversimplified view of the situation which must be taken to define strict cut-offs between what is and isn't considered part of the pandemic period. The questions posed with these assumptions as how frequency changed for all sensors overall during these periods and how individual sensors may have changed. The direction of this line of questioning is to examine what happened to Seattle bike path usage as a whole and how certain regions gained or lost popularity.
 Among the four sensors which one has the most traffic (regardless of the pandemic)?
