@@ -99,6 +99,14 @@ app.layout = html.Div(
             style={'textAlign': 'center', 'color': colors['text'],
                    'fontFamily': 'Helvetica', 'border': '1px solid #ddd',
                    'padding': '10px', 'border-radius': '15px'}),
+        html.H4(
+            "CSE163 Final Project Group 3",
+            style={'color': colors['text'], 'fontFamily': 'Helvetica',
+                   'padding': '2px', 'margin': '10px'}),
+        html.H4(
+            "Henry Ramstad, Ani Ramadurai, Annika Halvorson",
+            style={'color': colors['text'], 'fontFamily': 'Helvetica',
+                   'padding': '2px', 'margin': '10px'}),
         html.P(
             "The map below displays interactive visuals of our data across 4 Seattle area bike sensors",
             style={'color': colors['text'], 'fontFamily': 'Helvetica',
@@ -110,7 +118,8 @@ app.layout = html.Div(
             config=dict(displayModeBar=False)
         ),
         html.P(
-            "Use the Sliders below to filter the data to specific months and years!",
+            "Use the Sliders below to filter the data to specific months and years! \
+              Note: the data spans from the following time frames 2022-06-30 to 2018-01-01",
             style={'color': colors['text'], 'fontFamily': 'Helvetica',
                    'padding': '10px', 'margin': '10px',
                    'textAlign': 'center'}),
