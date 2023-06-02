@@ -15,7 +15,7 @@ import plotly.graph_objects as go
 import dash
 from dash import Dash, dcc, html, dash_table
 import pandas as pd
-import flask
+import os
 
 # import datasets and convert to datetime for easier manipulation
 df_fremont = pd.read_csv('Filtered Data/fremont_filtered.csv')
@@ -84,34 +84,54 @@ figure.update_layout(
 )
 
 
-@app.server.route("/pdf")
-def serve_pdf():
-    return flask.send_file("CSE_163_Project_Report.pdf",
-                           attachment_filename="CSE_163_Project_Report.pdf")
-
-
 # App HTML written using Dash syntax including the text and drawing of the
 # graph,table, sliders, and additional elements.
 app.layout = html.Div(
-    style={'backgroundColor': colors['background'], 'padding': '20px'},
+    style={
+        'backgroundColor': colors['background'],
+        'padding': '20px'
+    },
     children=[
         html.H1(
-            "Understanding COVID-19's Effect on Bicycle Route Usage in Seattle from 2018 to 2022",
-            style={'textAlign': 'center', 'color': colors['text'],
-                   'fontFamily': 'Helvetica', 'border': '1px solid #ddd',
-                   'padding': '10px', 'border-radius': '15px'}),
+            "Understanding COVID-19's Effect on Bicycle Route Usage in Seattle "
+            "from 2018 to 2022",
+            style={
+                'textAlign': 'center',
+                'color': colors['text'],
+                'fontFamily': 'Helvetica',
+                'border': '1px solid #ddd',
+                'padding': '10px',
+                'border-radius': '15px'
+            }
+        ),
         html.H4(
             "CSE163 Final Project Group 3",
-            style={'color': colors['text'], 'fontFamily': 'Helvetica',
-                   'padding': '2px', 'margin': '10px'}),
+            style={
+                'color': colors['text'],
+                'fontFamily': 'Helvetica',
+                'padding': '2px',
+                'margin': '10px'
+            }
+        ),
         html.H4(
             "Henry Ramstad, Ani Ramadurai, Annika Halvorson",
-            style={'color': colors['text'], 'fontFamily': 'Helvetica',
-                   'padding': '2px', 'margin': '10px'}),
+            style={
+                'color': colors['text'],
+                'fontFamily': 'Helvetica',
+                'padding': '2px',
+                'margin': '10px'
+            }
+        ),
         html.P(
-            "The map below displays interactive visuals of our data across 4 Seattle area bike sensors",
-            style={'color': colors['text'], 'fontFamily': 'Helvetica',
-                   'padding': '2px', 'margin': '10px'}),
+            "The map below displays interactive visuals of our data across 4 "
+            "Seattle area bike sensors",
+            style={
+                'color': colors['text'],
+                'fontFamily': 'Helvetica',
+                'padding': '2px',
+                'margin': '10px'
+            }
+        ),
         dcc.Graph(
             id='map',
             figure=figure,
@@ -119,79 +139,140 @@ app.layout = html.Div(
             config=dict(displayModeBar=False)
         ),
         html.P(
-            "Use the Sliders below to filter the data to specific months and years! \
-              Note: the data spans from the following time frames 2022-06-30 to 2018-01-01",
-            style={'color': colors['text'], 'fontFamily': 'Helvetica',
-                   'padding': '10px', 'margin': '10px',
-                   'textAlign': 'center'}),
-        html.Div([
-            html.Label("Select Year:", style={'color': colors['text'],
-                                              'fontFamily': 'Helvetica'}),
-            dcc.Slider(
-                id='year-slider',
-                min=df_fremont['Date'].dt.year.min(),
-                max=df_fremont['Date'].dt.year.max(),
-                value=df_fremont['Date'].dt.year.min(),
-                marks={
-                    str(year): str(year) for year in range(
-                        df_fremont['Date'].dt.year.min(),
-                        df_fremont['Date'].dt.year.max()+1)},
-                step=None,
-            )
-        ], style={'width': '50%', 'margin': 'auto',
-                  'marginTop': '10px', 'marginBottom': '10px',
-                  'border': '1px solid #ddd', 'border-radius': '15px',
-                  'padding': '7px'}),
-        html.Div([
-            html.Label("Select Month:", style={'color': colors['text'],
-                                               'fontFamily': 'Helvetica'}),
-            dcc.Slider(
-                id='month-slider',
-                min=df_fremont['Date'].dt.month.min(),
-                max=df_fremont['Date'].dt.month.max(),
-                value=df_fremont['Date'].dt.month.min(),
-                marks={
-                    str(month): str(month) for month in range(
-                        df_fremont['Date'].dt.month.min(),
-                        df_fremont['Date'].dt.month.max()+1)},
-                step=None,
-            )
-        ], style={'width': '50%', 'margin': 'auto', 'border': '1px solid #ddd',
-                  'padding': '10px', 'marginTop': '10px', 'marginBottom':
-                  '10px', 'border-radius': '15px'}),
-        html.H1('Data Table', style={'textAlign': 'center',
-                                     'color': colors['text'],
-                                     'fontFamily': 'Helvetica',
-                                     'marginTop': '10px',
-                                     'padding': '10px'}),
-        html.Div(id='table-container', style={'margin': 'auto',
-                                              'marginTop': '20px',
-                                              'width': 'fit-content',
-                                              'border': '1px solid #ddd',
-                                              'padding': '10px',
-                                              'border-radius': '15px',
-                                              'marginBottom': '50px'}),
-        html.H1('Report', style={'textAlign': 'center',
-                                 'color': colors['text'],
-                                 'fontFamily': 'Helvetica',
-                                 'marginTop': '10px',
-                                 'padding': '10px'}),
+            "Use the Sliders below to filter the data to specific months and "
+            "years! Note: the data spans from the following time frames "
+            "2022-06-30 to 2018-01-01",
+            style={
+                'color': colors['text'],
+                'fontFamily': 'Helvetica',
+                'padding': '10px',
+                'margin': '10px',
+                'textAlign': 'center'
+            }
+        ),
         html.Div(
-            style={'width': '80%', 'margin': 'auto',
-                   'marginTop': '10px', 'marginBottom': '90px',
-                   'border': '6px solid #3c434e', 'border-radius': '15px'},
-            children=[dash.html.Iframe(src="/pdf",
-                                       style={'width': '100%',
-                                              'height': '900px',
-                                              'textAlign': 'center',
-                                              'border': '1px solid #ddd',
-                                              'padding': '10px',
-                                              'border-radius': '15px'})]
+            [
+                html.Label(
+                    "Select Year:",
+                    style={
+                        'color': colors['text'],
+                        'fontFamily': 'Helvetica'
+                    }
+                ),
+                dcc.Slider(
+                    id='year-slider',
+                    min=df_fremont['Date'].dt.year.min(),
+                    max=df_fremont['Date'].dt.year.max(),
+                    value=df_fremont['Date'].dt.year.min(),
+                    marks={
+                        str(year): str(year) for year in range(
+                            df_fremont['Date'].dt.year.min(),
+                            df_fremont['Date'].dt.year.max()+1
+                        )
+                    },
+                    step=None,
+                )
+            ],
+            style={
+                'width': '50%',
+                'margin': 'auto',
+                'marginTop': '10px',
+                'marginBottom': '10px',
+                'border': '1px solid #ddd',
+                'border-radius': '15px',
+                'padding': '7px'
+            }
+        ),
+        html.Div(
+            [
+                html.Label(
+                    "Select Month:",
+                    style={
+                        'color': colors['text'],
+                        'fontFamily': 'Helvetica'
+                    }
+                ),
+                dcc.Slider(
+                    id='month-slider',
+                    min=df_fremont['Date'].dt.month.min(),
+                    max=df_fremont['Date'].dt.month.max(),
+                    value=df_fremont['Date'].dt.month.min(),
+                    marks={
+                        str(month): str(month) for month in range(
+                            df_fremont['Date'].dt.month.min(),
+                            df_fremont['Date'].dt.month.max()+1
+                        )
+                    },
+                    step=None,
+                )
+            ],
+            style={
+                'width': '50%',
+                'margin': 'auto',
+                'border': '1px solid #ddd',
+                'padding': '10px',
+                'marginTop': '10px',
+                'marginBottom': '10px',
+                'border-radius': '15px'
+            }
+        ),
+        html.H1(
+            'Data Table',
+            style={
+                'textAlign': 'center',
+                'color': colors['text'],
+                'fontFamily': 'Helvetica',
+                'marginTop': '10px',
+                'padding': '10px'
+            }
+        ),
+        html.Div(
+            id='table-container',
+            style={
+                'margin': 'auto',
+                'marginTop': '20px',
+                'width': 'fit-content',
+                'border': '1px solid #ddd',
+                'padding': '10px',
+                'border-radius': '15px',
+                'marginBottom': '50px'
+            }
+        ),
+        html.H1(
+            'Report',
+            style={
+                'textAlign': 'center',
+                'color': colors['text'],
+                'fontFamily': 'Helvetica',
+                'marginTop': '10px',
+                'padding': '10px'
+            }
+        ),
+        html.Div(
+            style={
+                'width': '80%',
+                'margin': 'auto',
+                'marginTop': '10px',
+                'marginBottom': '90px',
+                'border': '6px solid #3c434e',
+                'border-radius': '15px'
+            },
+            children=[
+                html.Iframe(
+                    src=os.path.join("assets", "CSE_163_Project_Report.pdf"),
+                    style={
+                        'width': '100%',
+                        'height': '900px',
+                        'textAlign': 'center',
+                        'border': '1px solid #ddd',
+                        'padding': '10px',
+                        'border-radius': '15px'
+                    }
+                )
+            ]
         )
     ]
 )
-
-
 @app.callback(
     dash.dependencies.Output('map', 'figure'),
     [dash.dependencies.Input('year-slider', 'value'),
