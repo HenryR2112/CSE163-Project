@@ -7,6 +7,7 @@ to their most current versions:
 4. Numpy
 5. flask
 6. Matplotlib
+7. gunicorn (for running the server)
 
 Installation guide:
 To access the necessary dependencies use the following syntax
