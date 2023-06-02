@@ -35,6 +35,7 @@ colors = {
 
 # dash main method name
 app = Dash(__name__)
+server = app.server
 
 figure = go.Figure()
 
